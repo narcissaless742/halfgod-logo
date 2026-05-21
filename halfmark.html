@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HALFGØD — Half-Mark Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:wght@600&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep: #142231;
+      --bone: #E3E0D6;
+      --olive: #4B5340;
+      --clay: #A67C5B;
+      --slate: #5D676F;
+    }
+    body {
+      background: var(--deep);
+      color: var(--bone);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 300;
+    }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 72px 56px 100px; }
+
+    /* VERSION SWITCHER */
+    .ver-switch { display: inline-flex; gap: 2px; margin-bottom: 48px; }
+    .ver-btn {
+      padding: 10px 24px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px; letter-spacing: .35em; text-transform: uppercase;
+      text-decoration: none;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-bottom: 2px solid transparent;
+      color: var(--slate); transition: all .15s;
+    }
+    .ver-btn:hover { color: var(--bone); background: rgba(255,255,255,.06); }
+    .ver-btn.active {
+      color: var(--bone);
+      border-bottom: 2px solid var(--clay);
+      background: rgba(166,124,91,.07);
+      cursor: default; pointer-events: none;
+    }
+
+    /* HEADER */
+    .hdr { padding-bottom: 36px; border-bottom: 1px solid rgba(227,224,214,.12); margin-bottom: 72px; }
+    .hdr-brand { font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: .1em; line-height: 1; }
+    .hdr-sub { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--slate); margin-top: 6px; }
+
+    /* SECTION */
+    .sec { margin-bottom: 72px; }
+    .sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .sec-num   { font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--clay); white-space: nowrap; }
+    .sec-title { font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--slate); white-space: nowrap; }
+    .sec-line  { flex: 1; height: 1px; background: rgba(227,224,214,.1); }
+
+    /* RUNE GRID */
+    .rune-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .rune-group { display: flex; flex-direction: column; gap: 2px; cursor: pointer; }
+    .rune-group .rune-card:first-child {
+      border-bottom: 2px solid transparent;
+      transition: border-color .2s, background .2s;
+    }
+    .rune-group.selected .rune-card:first-child {
+      border-bottom: 2px solid var(--clay);
+      background: rgba(166,124,91,.08);
+    }
+    .rune-card {
+      padding: 36px 16px 22px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.05);
+      transition: background .2s;
+    }
+    .rune-group:hover .rune-card:first-child { background: rgba(255,255,255,.05); }
+    .rune-card.lit { background: var(--bone); border-color: transparent; }
+    .rune-group.selected .rune-card.lit { background: #d6d3c9; }
+    .rune-card svg { width: 64px; height: 64px; }
+    .rune-id   { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: var(--clay); display: block; text-align: center; }
+    .rune-name { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--bone); display: block; text-align: center; margin-top: 3px; }
+    .rune-desc { font-size: 10px; color: var(--slate); text-align: center; line-height: 1.7; }
+    .rune-card.lit .rune-id   { color: var(--olive); }
+    .rune-card.lit .rune-name { color: var(--deep); }
+    .rune-card.lit .rune-desc { color: var(--olive); }
+
+    /* CONCEPT NAVIGATOR */
+    .concept-nav {
+      display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; margin-bottom: 3px;
+    }
+    .cn-btn {
+      padding: 16px 8px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.05);
+      border-bottom: 2px solid transparent;
+      color: var(--slate); cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      transition: all .15s; white-space: nowrap;
+    }
+    .cn-btn:hover { color: var(--bone); background: rgba(255,255,255,.05); }
+    .cn-btn.active { color: var(--bone); background: rgba(166,124,91,.08); border-bottom: 2px solid var(--clay); }
+    .cn-num  { font-size: 9px; letter-spacing: .3em; color: var(--clay); }
+    .cn-name { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; }
+
+    /* CONCEPT DETAIL */
+    .concept-detail { background: rgba(255,255,255,.015); border: 1px solid rgba(255,255,255,.06); }
+    .cd-header {
+      padding: 32px 40px; border-bottom: 1px solid rgba(227,224,214,.08);
+      display: flex; align-items: baseline; gap: 20px;
+    }
+    .cd-num  { font-size: 11px; letter-spacing: .4em; text-transform: uppercase; color: var(--clay); }
+    .cd-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: .1em; color: var(--bone); }
+    .cd-rune { font-size: 24px; color: rgba(227,224,214,.3); margin-left: -8px; }
+    .cd-meaning { font-size: 11px; color: var(--slate); letter-spacing: .04em; margin-left: auto; text-align: right; line-height: 1.7; }
+    .cd-body { display: grid; grid-template-columns: 1fr 1fr; border-top: none; }
+    .cd-symbols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+      border-right: 2px solid rgba(227,224,214,.06);
+    }
+    .cd-sym { display: flex; align-items: center; justify-content: center; padding: 48px 24px; }
+    .cd-sym.on-dark  { background: var(--deep); }
+    .cd-sym.on-bone  { background: var(--bone); }
+    .cd-sym.on-dk2   { background: #0c1825; }
+    .cd-sym.on-olive { background: var(--olive); }
+    .cd-combos { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .cd-combo {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; padding: 36px 20px 28px; min-height: 200px;
+    }
+    .cd-combo.on-dark  { background: var(--deep); }
+    .cd-combo.on-dk2   { background: #0c1825; }
+    .cd-combo.on-bone  { background: var(--bone); }
+    .cd-combo.on-olive { background: var(--olive); }
+    .combo-v { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .combo-h { display: flex; align-items: center; gap: 14px; }
+    .combo-word {
+      font-family: 'Bebas Neue', sans-serif; font-size: 34px;
+      letter-spacing: .13em; color: var(--bone); line-height: 1;
+    }
+    .combo-word.dark { color: var(--deep); }
+    .combo-tag { font-size: 8px; letter-spacing: .4em; text-transform: uppercase; color: rgba(227,224,214,.35); }
+    .combo-tag.dark { color: var(--olive); }
+
+    /* IN CONTEXT */
+    .ctx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .ctx-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 300px; padding: 40px 20px 28px; gap: 16px;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .ctx-label { font-size: 9px; letter-spacing: .4em; text-transform: uppercase; color: var(--slate); }
+    .mock-tag {
+      background: #E8E4D9; padding: 18px 18px 20px; width: 118px;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      border: 1px solid rgba(0,0,0,.07); box-shadow: 0 6px 24px rgba(0,0,0,.35);
+    }
+    .mock-tag-hole { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #b0a898; margin-bottom: 12px; }
+    .tag-brand { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: .12em; color: var(--deep); line-height: 1; margin-top: 6px; }
+    .tag-divider { width: 72%; height: 1px; background: rgba(0,0,0,.1); margin: 7px 0; }
+    .tag-meta { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: #8a8078; }
+    .tag-price { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: .06em; color: var(--deep); margin-top: 5px; }
+    .mock-patch {
+      border: 2px solid var(--clay); outline: 2px dashed rgba(166,124,91,.28);
+      outline-offset: -7px; padding: 22px 28px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .patch-word { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .2em; color: var(--clay); line-height: 1; }
+
+    /* PALETTE */
+    .palette { display: flex; gap: 2px; margin-top: 72px; padding-top: 48px; border-top: 1px solid rgba(227,224,214,.1); }
+    .swatch  { flex: 1; height: 24px; }
+    .note    { margin-top: 20px; font-size: 11px; color: var(--slate); line-height: 1.9; max-width: 700px; letter-spacing: .03em; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="ver-switch">
+    <a href="index.html" class="ver-btn">v1 &mdash; Overview</a>
+    <a href="runes.html" class="ver-btn">v2 &mdash; Runes</a>
+    <span class="ver-btn active">v3 &mdash; Half-Mark</span>
+  </div>
+
+  <header class="hdr">
+    <div class="hdr-brand">HALFGØD</div>
+    <div class="hdr-sub">Half-Mark Exploration &mdash; Diamond Direction &mdash; v3</div>
+  </header>
+
+  <!-- 01 — GRID OVERVIEW -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Symbol Overview — клікни для деталей</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="rune-grid" id="rune-grid"></div>
+  </section>
+
+  <!-- 02 — CONCEPT SWITCHER -->
+  <section class="sec" style="margin-bottom:0;">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Concept Detail</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="concept-nav" id="concept-nav"></div>
+    <div class="concept-detail" id="concept-detail"></div>
+  </section>
+
+  <!-- 03 — IN CONTEXT -->
+  <section class="sec" style="margin-top:72px; margin-bottom:0;">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">In Context</span>
+      <div class="sec-line"></div>
+    </div>
+    <div id="context-grid" class="ctx-grid"></div>
+  </section>
+
+  <!-- PALETTE -->
+  <div class="palette">
+    <div class="swatch" style="background:#142231;"></div>
+    <div class="swatch" style="background:#E3E0D6;"></div>
+    <div class="swatch" style="background:#4B5340;"></div>
+    <div class="swatch" style="background:#A67C5B;"></div>
+    <div class="swatch" style="background:#5D676F;"></div>
+  </div>
+  <p class="note">
+    Diamond-напрямок &mdash; байкерська і бунтарська естетика. Геометрична чіткість, патч-логіка,
+    татуювання-культура. Порівняй з руничним напрямком v2 &mdash; обери фіналіста.
+  </p>
+
+</div>
+
+<script>
+  const BONE = '#E3E0D6';
+  const DEEP = '#142231';
+
+  const concepts = [
+    {
+      id: 'halfmark', num: '01', name: 'Half-Mark', rune: '◇',
+      meaning: 'Дуальність · Половина<br>Бунт і традиція',
+      svg: (c, w) => `
+        <path d="M40,6 L72,40 L40,74 L8,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <line x1="8" y1="40" x2="72" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+      `
+    },
+    {
+      id: 'diamond-cross', num: '02', name: 'Diamond Cross', rune: '',
+      meaning: 'Чотири напрямки · Північ<br>Клубний знак · Патч',
+      svg: (c, w) => `
+        <path d="M40,6 L72,40 L40,74 L8,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <line x1="8"  y1="40" x2="72" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+        <line x1="40" y1="6"  x2="40" y2="74" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+      `
+    },
+    {
+      id: 'apex', num: '03', name: 'Apex', rune: '▲',
+      meaning: 'Бог-половина · Вершина<br>Сила без компромісів',
+      svg: (c, w) => `
+        <path d="M40,8 L72,46 L8,46 Z" fill="${c}"/>
+      `
+    },
+    {
+      id: 'iron-cross', num: '04', name: 'Iron Cross', rune: '',
+      meaning: 'Залізний хрест · Шлях<br>Честь · Сила · Незалежність',
+      svg: (c, w) => `
+        <path d="M28,8 L52,8 L46,34 L72,28 L72,52 L46,46 L52,72 L28,72 L34,46 L8,52 L8,28 L34,34 Z" fill="${c}"/>
+      `
+    },
+    {
+      id: 'split', num: '05', name: 'Split', rune: '',
+      meaning: 'Розкол · Між двох світів<br>Людина і бог — окремо',
+      svg: (c, w) => `
+        <path d="M40,6 L72,38 L8,38 Z"  stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <path d="M8,42 L72,42 L40,74 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+      `
+    },
+    {
+      id: 'spade', num: '06', name: 'Spade', rune: '♠',
+      meaning: 'Пікова масть · Татуювання<br>Байкерська традиція',
+      svg: (c, w) => `
+        <path d="M40,6 L70,38 L40,62 L10,38 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <line x1="40" y1="62" x2="40" y2="74" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+        <line x1="28" y1="74" x2="52" y2="74" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+      `
+    },
+    {
+      id: 'half-fill', num: '07', name: 'Half-Fill', rune: '',
+      meaning: 'Наполовину темний<br>Наполовину світлий · Баланс',
+      svg: (c, w) => `
+        <path d="M40,6 L72,40 L40,74 L8,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <path d="M40,6 L72,40 L8,40 Z" fill="${c}"/>
+      `
+    },
+    {
+      id: 'shield', num: '08', name: 'Shield Mark', rune: '',
+      meaning: 'Герб · MC-патч<br>Захист і братство',
+      svg: (c, w) => `
+        <path d="M8,10 L72,10 L72,44 L40,74 L8,44 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <line x1="8" y1="42" x2="72" y2="42" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+      `
+    }
+  ];
+
+  /* ─── RENDER GRID ─── */
+  function buildGrid() {
+    const grid = document.getElementById('rune-grid');
+    grid.innerHTML = concepts.map(c => `
+      <div class="rune-group" data-concept="${c.id}" onclick="select('${c.id}')">
+        <div class="rune-card">
+          <svg viewBox="0 0 80 80" fill="none">${c.svg(BONE, 8)}</svg>
+          <div>
+            <span class="rune-id">${c.num}</span>
+            <span class="rune-name">${c.name}</span>
+          </div>
+          <p class="rune-desc">${c.meaning.replace('<br>', ' ')}</p>
+        </div>
+        <div class="rune-card lit">
+          <svg viewBox="0 0 80 80" fill="none">${c.svg(DEEP, 8)}</svg>
+          <div>
+            <span class="rune-id">on Bone</span>
+            <span class="rune-name">${c.name}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  /* ─── RENDER TABS ─── */
+  function buildTabs() {
+    const nav = document.getElementById('concept-nav');
+    nav.innerHTML = concepts.map(c => `
+      <button class="cn-btn" data-id="${c.id}" onclick="select('${c.id}')">
+        <span class="cn-num">${c.num}</span>
+        <span class="cn-name">${c.name}</span>
+      </button>
+    `).join('');
+  }
+
+  /* ─── RENDER DETAIL ─── */
+  function renderDetail(c) {
+    const sym = (color, w, size) =>
+      `<svg viewBox="0 0 80 80" fill="none" width="${size}" height="${size}">${c.svg(color, w)}</svg>`;
+
+    return `
+      <div class="cd-header">
+        <span class="cd-num">${c.num}</span>
+        <span class="cd-name">${c.name}</span>
+        ${c.rune ? `<span class="cd-rune">${c.rune}</span>` : ''}
+        <span class="cd-meaning">${c.meaning}</span>
+      </div>
+      <div class="cd-body">
+        <div class="cd-symbols">
+          <div class="cd-sym on-dark">${sym(BONE, 7, 160)}</div>
+          <div class="cd-sym on-bone">${sym(DEEP, 7, 160)}</div>
+          <div class="cd-sym on-dk2">${sym(BONE, 7, 160)}</div>
+          <div class="cd-sym on-olive">${sym(BONE, 7, 160)}</div>
+        </div>
+        <div class="cd-combos">
+          <div class="cd-combo on-dark">
+            <div class="combo-v">
+              ${sym(BONE, 9, 48)}
+              <span class="combo-word">HALFGØD</span>
+            </div>
+            <span class="combo-tag">Born Human. Built God.</span>
+          </div>
+          <div class="cd-combo on-dk2">
+            <div class="combo-h">
+              ${sym(BONE, 9, 38)}
+              <span class="combo-word" style="font-size:38px;">HALFGØD</span>
+            </div>
+            <span class="combo-tag">Inspired to Create</span>
+          </div>
+          <div class="cd-combo on-bone">
+            <div class="combo-v">
+              ${sym(DEEP, 9, 48)}
+              <span class="combo-word dark">HALFGØD</span>
+            </div>
+            <span class="combo-tag dark">Born Human. Built God.</span>
+          </div>
+          <div class="cd-combo on-olive">
+            <div class="combo-v">
+              ${sym(BONE, 9, 48)}
+              <span class="combo-word">HALFGØD</span>
+            </div>
+            <span class="combo-tag">Born Human. Built God.</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ─── RENDER CONTEXT ─── */
+  function renderContext(c) {
+    const CLAY = '#A67C5B';
+    const sym = (col, w, sz) =>
+      `<svg viewBox="0 0 80 80" fill="none" width="${sz}" height="${sz}">${c.svg(col, w)}</svg>`;
+
+    const tshirtSvg = `
+      <svg viewBox="0 0 180 200" fill="none" width="148" height="165">
+        <path d="M55,0 C62,20 118,20 125,0 L180,36 L160,50 L160,200 L20,200 L20,50 L0,36 Z" fill="#4B5340"/>
+        <g transform="translate(71,62) scale(0.475)">${c.svg(BONE, 9)}</g>
+      </svg>`;
+
+    const sealSvg = `
+      <svg viewBox="0 0 160 160" fill="none" width="154" height="154">
+        <defs>
+          <path id="sealArc" d="M80,80 m-53,0 a53,53 0 0,1 106,0"/>
+        </defs>
+        <circle cx="80" cy="80" r="74" stroke="rgba(166,124,91,.45)" stroke-width="1.5"/>
+        <circle cx="80" cy="80" r="65" stroke="rgba(166,124,91,.2)" stroke-width="1"/>
+        <circle cx="80" cy="80" r="57" stroke="rgba(166,124,91,.12)" stroke-width="1" stroke-dasharray="3 4"/>
+        <g transform="translate(56,56) scale(0.6)">${c.svg('rgba(166,124,91,.8)', 6)}</g>
+        <text font-family="'Space Grotesk',sans-serif" font-size="9" letter-spacing="3.5" fill="rgba(166,124,91,.55)" text-anchor="middle">
+          <textPath href="#sealArc" startOffset="50%">HALFGØD · BORN HUMAN · BUILT GOD</textPath>
+        </text>
+      </svg>`;
+
+    return `
+      <div class="ctx-card" style="background:#151b22;">
+        ${sym(BONE, 9, 68)}
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.13em;color:var(--bone);line-height:1;">HALFGØD</span>
+        <span class="ctx-label">Storefront / Wall</span>
+      </div>
+
+      <div class="ctx-card" style="background:#222831;">
+        <div class="mock-tag">
+          <div class="mock-tag-hole"></div>
+          ${sym(DEEP, 8, 34)}
+          <div class="tag-brand">HALFGØD</div>
+          <div class="tag-divider"></div>
+          <div class="tag-meta">XL &nbsp;·&nbsp; 54</div>
+          <div class="tag-divider"></div>
+          <div class="tag-price">1 200 ₴</div>
+        </div>
+        <span class="ctx-label">Hang Tag</span>
+      </div>
+
+      <div class="ctx-card" style="background:#100d0a;">
+        <div class="mock-patch">
+          ${sym(CLAY, 8, 48)}
+          <div class="patch-word">HALFGØD</div>
+        </div>
+        <span class="ctx-label">Leather Patch</span>
+      </div>
+
+      <div class="ctx-card" style="background:#1a1f27;">
+        ${tshirtSvg}
+        <span class="ctx-label">T-Shirt Chest Print</span>
+      </div>
+
+      <div class="ctx-card" style="background:#0e1318;">
+        <div class="mock-patch" style="border-color:rgba(227,224,214,.1);outline-color:rgba(227,224,214,.06);background:linear-gradient(145deg,#2a2f35,#1c2025);gap:6px;padding:20px 28px;">
+          ${sym('rgba(227,224,214,.2)', 9, 44)}
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.2em;color:rgba(227,224,214,.22);line-height:1;">HALFGØD</div>
+          <div style="font-size:7px;letter-spacing:.35em;text-transform:uppercase;color:rgba(227,224,214,.12);">Born Human. Built God.</div>
+        </div>
+        <span class="ctx-label">Metal Rivet Label</span>
+      </div>
+
+      <div class="ctx-card" style="background:#0e1318;">
+        ${sealSvg}
+        <span class="ctx-label">Wax Seal / Stamp</span>
+      </div>
+    `;
+  }
+
+  /* ─── SELECT CONCEPT ─── */
+  function select(id) {
+    document.querySelectorAll('.cn-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.id === id)
+    );
+    document.querySelectorAll('.rune-group').forEach(g =>
+      g.classList.toggle('selected', g.dataset.concept === id)
+    );
+    const c = concepts.find(x => x.id === id);
+    document.getElementById('concept-detail').innerHTML = renderDetail(c);
+    document.getElementById('context-grid').innerHTML = renderContext(c);
+  }
+
+  /* ─── INIT ─── */
+  buildGrid();
+  buildTabs();
+  select('halfmark');
+</script>
+</body>
+</html>

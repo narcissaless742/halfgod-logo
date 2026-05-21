@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HALFGØD — Logo Exploration v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:wght@600&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep: #142231;
+      --bone: #E3E0D6;
+      --olive: #4B5340;
+      --clay: #A67C5B;
+      --slate: #5D676F;
+    }
+    body {
+      background: var(--deep);
+      color: var(--bone);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 300;
+    }
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 72px 56px 100px;
+    }
+
+    /* HEADER */
+    .hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(227,224,214,.12);
+      margin-bottom: 72px;
+    }
+    .hdr-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      letter-spacing: .1em;
+      line-height: 1;
+    }
+    .hdr-sub {
+      font-size: 10px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-top: 6px;
+    }
+    .hdr-slogan {
+      text-align: right;
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--slate);
+      line-height: 2.2;
+    }
+
+    /* SECTION */
+    .sec { margin-bottom: 88px; }
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .sec-num {
+      font-size: 10px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--clay);
+      white-space: nowrap;
+    }
+    .sec-title {
+      font-size: 10px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--slate);
+      white-space: nowrap;
+    }
+    .sec-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(227,224,214,.1);
+    }
+
+    /* SYMBOL GRID */
+    .sym-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .sym-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sym-card {
+      padding: 44px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .sym-card.lit {
+      background: var(--bone);
+      border-color: transparent;
+    }
+    .sym-card svg {
+      width: 64px;
+      height: 80px;
+    }
+    .sym-id {
+      font-size: 9px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--clay);
+      display: block;
+      text-align: center;
+    }
+    .sym-name {
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--bone);
+      display: block;
+      text-align: center;
+      margin-top: 4px;
+    }
+    .sym-meaning {
+      font-size: 10px;
+      color: var(--slate);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .sym-card.lit .sym-id { color: var(--olive); }
+    .sym-card.lit .sym-name { color: var(--deep); }
+    .sym-card.lit .sym-meaning { color: var(--olive); }
+
+    /* WORDMARK GRID */
+    .wm-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .wm-card {
+      padding: 52px 32px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .wm-card.lit { background: var(--bone); border-color: transparent; }
+    .wm-card.ol  { background: var(--olive); border-color: transparent; }
+    .wm-bebas {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      letter-spacing: .12em;
+      color: var(--bone);
+      line-height: 1;
+    }
+    .wm-cormorant {
+      font-family: 'Cormorant', serif;
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      color: var(--bone);
+      line-height: 1;
+    }
+    .wm-grotesk {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: var(--bone);
+      line-height: 1;
+    }
+    .wm-card.lit .wm-bebas,
+    .wm-card.lit .wm-cormorant,
+    .wm-card.lit .wm-grotesk { color: var(--deep); }
+    .wm-lbl {
+      font-size: 10px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+    .wm-desc {
+      font-size: 11px;
+      color: var(--slate);
+      text-align: center;
+      line-height: 1.6;
+    }
+    .wm-card.lit .wm-lbl,
+    .wm-card.lit .wm-desc { color: var(--olive); }
+    .wm-card.ol .wm-bebas { color: var(--bone); }
+    .wm-card.ol .wm-lbl,
+    .wm-card.ol .wm-desc { color: rgba(227,224,214,.6); }
+
+    /* COMBINED */
+    .cmb-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .cmb-card {
+      padding: 52px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.05);
+      min-height: 280px;
+    }
+    .cmb-card.dk2 { background: #0c1825; border-color: transparent; }
+    .cmb-card.lit { background: var(--bone); border-color: transparent; }
+    .cmb-card.ol  { background: var(--olive); border-color: transparent; }
+    .cmb-logo-v {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .cmb-logo-h {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .cmb-word-b {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: .13em;
+      color: var(--bone);
+      line-height: 1;
+    }
+    .cmb-word-c {
+      font-family: 'Cormorant', serif;
+      font-weight: 600;
+      letter-spacing: .18em;
+      color: var(--bone);
+      line-height: 1;
+    }
+    .cmb-tag {
+      font-size: 9px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: rgba(227,224,214,.45);
+    }
+    .cmb-card.lit .cmb-word-b,
+    .cmb-card.lit .cmb-word-c { color: var(--deep); }
+    .cmb-card.lit .cmb-tag { color: var(--olive); }
+
+    /* SHORTMARK */
+    .shortmark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      letter-spacing: .06em;
+      line-height: 1;
+      color: var(--bone);
+    }
+
+    /* PALETTE BAR */
+    .palette {
+      display: flex;
+      gap: 2px;
+      margin-top: 72px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(227,224,214,.1);
+    }
+    .swatch { flex: 1; height: 24px; }
+    .note {
+      margin-top: 20px;
+      font-size: 11px;
+      color: var(--slate);
+      line-height: 1.9;
+      max-width: 700px;
+      letter-spacing: .03em;
+    }
+
+    /* VERSION SWITCHER */
+    .ver-switch {
+      display: inline-flex;
+      gap: 2px;
+      margin-bottom: 48px;
+    }
+    .ver-btn {
+      padding: 10px 24px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-bottom: 2px solid transparent;
+      color: var(--slate);
+      transition: all .15s;
+    }
+    .ver-btn:hover { color: var(--bone); background: rgba(255,255,255,.06); }
+    .ver-btn.active {
+      color: var(--bone);
+      border-bottom: 2px solid var(--clay);
+      background: rgba(166,124,91,.07);
+      cursor: default;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- VERSION SWITCHER -->
+  <div class="ver-switch">
+    <span class="ver-btn active">v1 &mdash; Overview</span>
+    <a href="runes.html" class="ver-btn">v2 &mdash; Runes</a>
+    <a href="halfmark.html" class="ver-btn">v3 &mdash; Half-Mark</a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div>
+      <div class="hdr-brand">HALFGØD</div>
+      <div class="hdr-sub">Logo Exploration &mdash; Symbol Direction A &mdash; v2</div>
+    </div>
+    <div class="hdr-slogan">
+      Inspired to Create<br>
+      Born Human. Built God.
+    </div>
+  </header>
+
+  <!-- 01 SYMBOLS -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Symbol Concepts</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="sym-grid">
+
+      <!-- I: ALGIZ -->
+      <div class="sym-group">
+        <div class="sym-card">
+          <svg viewBox="0 0 70 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="35" y1="86" x2="35" y2="8"  stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="5"  y2="16" stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="65" y2="16" stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square"/>
+          </svg>
+          <div>
+            <span class="sym-id">A &mdash; 01</span>
+            <span class="sym-name">Algiz</span>
+          </div>
+          <p class="sym-meaning">Захист · Міст між<br>людиною і богами</p>
+        </div>
+        <div class="sym-card lit">
+          <svg viewBox="0 0 70 90" fill="none">
+            <line x1="35" y1="86" x2="35" y2="8"  stroke="#142231" stroke-width="3.5" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="5"  y2="16" stroke="#142231" stroke-width="3.5" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="65" y2="16" stroke="#142231" stroke-width="3.5" stroke-linecap="square"/>
+          </svg>
+          <div>
+            <span class="sym-id">on Bone</span>
+            <span class="sym-name">Algiz</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- II: HALF-MARK -->
+      <div class="sym-group">
+        <div class="sym-card">
+          <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40 6 L74 45 L40 84 L6 45 Z" stroke="#E3E0D6" stroke-width="3" fill="none"/>
+            <line x1="6" y1="45" x2="74" y2="45" stroke="#E3E0D6" stroke-width="3"/>
+            <path d="M40 6 L74 45 L6 45 Z" fill="#E3E0D6" fill-opacity=".1"/>
+          </svg>
+          <div>
+            <span class="sym-id">A &mdash; 02</span>
+            <span class="sym-name">Half-Mark</span>
+          </div>
+          <p class="sym-meaning">Дуальність · Половина<br>людське / божественне</p>
+        </div>
+        <div class="sym-card lit">
+          <svg viewBox="0 0 80 90" fill="none">
+            <path d="M40 6 L74 45 L40 84 L6 45 Z" stroke="#142231" stroke-width="3" fill="none"/>
+            <line x1="6" y1="45" x2="74" y2="45" stroke="#142231" stroke-width="3"/>
+          </svg>
+          <div>
+            <span class="sym-id">on Bone</span>
+            <span class="sym-name">Half-Mark</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- III: ASCEND (double chevron) -->
+      <div class="sym-group">
+        <div class="sym-card">
+          <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 54 L40 26 L72 54" stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+            <path d="M8 72 L40 44 L72 72" stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+          </svg>
+          <div>
+            <span class="sym-id">A &mdash; 03</span>
+            <span class="sym-name">Ascend</span>
+          </div>
+          <p class="sym-meaning">Рух вгору · Творіння<br>власної реальності</p>
+        </div>
+        <div class="sym-card lit">
+          <svg viewBox="0 0 80 90" fill="none">
+            <path d="M8 54 L40 26 L72 54" stroke="#142231" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+            <path d="M8 72 L40 44 L72 72" stroke="#142231" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+          </svg>
+          <div>
+            <span class="sym-id">on Bone</span>
+            <span class="sym-name">Ascend</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IV: NORTH STAR -->
+      <div class="sym-group">
+        <div class="sym-card">
+          <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40 4 L46 39 L76 45 L46 51 L40 86 L34 51 L4 45 L34 39 Z" fill="#E3E0D6"/>
+          </svg>
+          <div>
+            <span class="sym-id">A &mdash; 04</span>
+            <span class="sym-name">North Star</span>
+          </div>
+          <p class="sym-meaning">Орієнтир · Джерело<br>натхнення і сили</p>
+        </div>
+        <div class="sym-card lit">
+          <svg viewBox="0 0 80 90" fill="none">
+            <path d="M40 4 L46 39 L76 45 L46 51 L40 86 L34 51 L4 45 L34 39 Z" fill="#142231"/>
+          </svg>
+          <div>
+            <span class="sym-id">on Bone</span>
+            <span class="sym-name">North Star</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 02 WORDMARKS -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Wordmark Directions</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="wm-grid">
+
+      <div class="wm-card">
+        <div class="wm-bebas">HALFGØD</div>
+        <div class="wm-lbl">A &mdash; Condensed Sans</div>
+        <div class="wm-desc">Bebas Neue як база<br>Custom H · F · Ø letterforms</div>
+      </div>
+
+      <div class="wm-card">
+        <div class="wm-cormorant">HALFGØD</div>
+        <div class="wm-lbl">B &mdash; Premium Serif</div>
+        <div class="wm-desc">Cormorant · Преміум<br>Ремесло та автентичність</div>
+      </div>
+
+      <div class="wm-card">
+        <div class="wm-grotesk">HALFGØD</div>
+        <div class="wm-lbl">C &mdash; Geometric Sans</div>
+        <div class="wm-desc">Space Grotesk Bold<br>Сучасний · Чистий · Сильний</div>
+      </div>
+
+      <div class="wm-card lit">
+        <div class="wm-bebas">HALFGØD</div>
+        <div class="wm-lbl">A &mdash; on Bone</div>
+        <div class="wm-desc">Condensed на світлому</div>
+      </div>
+
+      <div class="wm-card lit">
+        <div class="wm-cormorant">HALFGØD</div>
+        <div class="wm-lbl">B &mdash; on Bone</div>
+        <div class="wm-desc">Serif на світлому</div>
+      </div>
+
+      <div class="wm-card ol">
+        <div class="wm-bebas">HALFGØD</div>
+        <div class="wm-lbl">A &mdash; on Tactical Olive</div>
+        <div class="wm-desc">На оливковому фоні</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 03 COMBINED -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Combined Compositions</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="cmb-grid">
+
+      <!-- Algiz + Bebas / vertical / dark -->
+      <div class="cmb-card">
+        <div class="cmb-logo-v">
+          <svg viewBox="0 0 70 90" fill="none" width="36" height="46">
+            <line x1="35" y1="86" x2="35" y2="8"  stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="5"  y2="16" stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="65" y2="16" stroke="#E3E0D6" stroke-width="3.5" stroke-linecap="square"/>
+          </svg>
+          <span class="cmb-word-b" style="font-size:38px;">HALFGØD</span>
+        </div>
+        <span class="cmb-tag">Born Human. Built God.</span>
+      </div>
+
+      <!-- North Star + Bebas / horizontal / darker -->
+      <div class="cmb-card dk2">
+        <div class="cmb-logo-h">
+          <svg viewBox="0 0 80 90" fill="none" width="28" height="32">
+            <path d="M40 4 L46 39 L76 45 L46 51 L40 86 L34 51 L4 45 L34 39 Z" fill="#E3E0D6"/>
+          </svg>
+          <span class="cmb-word-b" style="font-size:40px;">HALFGØD</span>
+        </div>
+        <span class="cmb-tag">Inspired to Create</span>
+      </div>
+
+      <!-- Ascend + Bebas / light bg -->
+      <div class="cmb-card lit">
+        <div class="cmb-logo-v">
+          <svg viewBox="0 0 80 90" fill="none" width="40" height="46">
+            <path d="M8 54 L40 26 L72 54" stroke="#142231" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+            <path d="M8 72 L40 44 L72 72" stroke="#142231" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+          </svg>
+          <span class="cmb-word-b" style="font-size:38px; color:#142231;">HALFGØD</span>
+        </div>
+        <span class="cmb-tag" style="color:var(--olive);">Born Human. Built God.</span>
+      </div>
+
+      <!-- Algiz + Cormorant / serif / dark -->
+      <div class="cmb-card" style="background:#0c1825; border-color:transparent;">
+        <div class="cmb-logo-v">
+          <svg viewBox="0 0 70 90" fill="none" width="32" height="42">
+            <line x1="35" y1="86" x2="35" y2="8"  stroke="#E3E0D6" stroke-width="3" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="5"  y2="16" stroke="#E3E0D6" stroke-width="3" stroke-linecap="square"/>
+            <line x1="35" y1="46" x2="65" y2="16" stroke="#E3E0D6" stroke-width="3" stroke-linecap="square"/>
+          </svg>
+          <span class="cmb-word-c" style="font-size:36px;">HALFGØD</span>
+        </div>
+        <span class="cmb-tag">Inspired to Create</span>
+      </div>
+
+      <!-- Half-mark + Bebas / olive -->
+      <div class="cmb-card ol">
+        <div class="cmb-logo-v">
+          <svg viewBox="0 0 80 90" fill="none" width="36" height="42">
+            <path d="M40 6 L74 45 L40 84 L6 45 Z" stroke="#E3E0D6" stroke-width="2.5" fill="none"/>
+            <line x1="6" y1="45" x2="74" y2="45" stroke="#E3E0D6" stroke-width="2.5"/>
+          </svg>
+          <span class="cmb-word-b" style="font-size:38px;">HALFGØD</span>
+        </div>
+        <span class="cmb-tag">Born Human. Built God.</span>
+      </div>
+
+      <!-- Shortmark -->
+      <div class="cmb-card">
+        <div class="shortmark">½GOD</div>
+        <span class="cmb-tag">Shortmark variant</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PALETTE -->
+  <div class="palette">
+    <div class="swatch" style="background:#142231;" title="Deep Abyss"></div>
+    <div class="swatch" style="background:#E3E0D6;" title="Bone"></div>
+    <div class="swatch" style="background:#4B5340;" title="Tactical Olive"></div>
+    <div class="swatch" style="background:#A67C5B;" title="Raw Clay"></div>
+    <div class="swatch" style="background:#5D676F;" title="Slate Stone"></div>
+  </div>
+  <p class="note">
+    Всі концепти — робочі версії на основі брендбуку v1. Вибери символ і шрифтовий напрям —
+    наступний крок: custom letterforms і деталізація обраного варіанту.
+  </p>
+
+</div>
+</body>
+</html>
