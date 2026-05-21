@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HALFGØD — Finalists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:  #142231;
+      --bone:  #E3E0D6;
+      --olive: #4B5340;
+      --clay:  #A67C5B;
+      --slate: #5D676F;
+    }
+    body { background: var(--deep); color: var(--bone); font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 300; }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 72px 56px 100px; }
+
+    /* NAV */
+    .ver-switch { display: inline-flex; gap: 2px; margin-bottom: 48px; flex-wrap: wrap; }
+    .ver-btn {
+      padding: 10px 22px; font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px; letter-spacing: .35em; text-transform: uppercase;
+      text-decoration: none; background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08); border-bottom: 2px solid transparent;
+      color: var(--slate); transition: all .15s;
+    }
+    .ver-btn:hover { color: var(--bone); background: rgba(255,255,255,.06); }
+    .ver-btn.active { color: var(--bone); border-bottom: 2px solid var(--clay); background: rgba(166,124,91,.1); cursor: default; pointer-events: none; }
+
+    /* HEADER */
+    .hdr { padding-bottom: 36px; border-bottom: 1px solid rgba(227,224,214,.12); margin-bottom: 72px; }
+    .hdr-brand { font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: .1em; line-height: 1; }
+    .hdr-sub { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--slate); margin-top: 6px; }
+
+    /* SECTION */
+    .sec { margin-bottom: 72px; }
+    .sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .sec-num   { font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--clay); white-space: nowrap; }
+    .sec-title { font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--slate); white-space: nowrap; }
+    .sec-line  { flex: 1; height: 1px; background: rgba(227,224,214,.1); }
+
+    /* SHORTLIST GRID — 4 cols */
+    .short-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .short-group { display: flex; flex-direction: column; gap: 2px; cursor: pointer; }
+    .short-group .sym-card:first-child { border-bottom: 2px solid transparent; transition: border-color .2s, background .2s; }
+    .short-group.selected .sym-card:first-child { border-bottom: 2px solid var(--clay); background: rgba(166,124,91,.09); }
+    .sym-card {
+      padding: 44px 20px 28px;
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05);
+      transition: background .2s;
+    }
+    .short-group:hover .sym-card:first-child { background: rgba(255,255,255,.05); }
+    .sym-card.lit { background: var(--bone); border-color: transparent; }
+    .short-group.selected .sym-card.lit { background: #d4d1c7; }
+    .sym-card svg { width: 80px; height: 80px; }
+    .sym-id   { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: var(--clay); display: block; text-align: center; }
+    .sym-name { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--bone); display: block; text-align: center; margin-top: 4px; }
+    .sym-card.lit .sym-id   { color: var(--olive); }
+    .sym-card.lit .sym-name { color: var(--deep); }
+
+    /* CONCEPT NAV */
+    .concept-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 3px; }
+    .cn-btn {
+      padding: 18px 8px; background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.05); border-bottom: 2px solid transparent;
+      color: var(--slate); cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      transition: all .15s;
+    }
+    .cn-btn:hover { color: var(--bone); background: rgba(255,255,255,.05); }
+    .cn-btn.active { color: var(--bone); background: rgba(166,124,91,.08); border-bottom: 2px solid var(--clay); }
+    .cn-num  { font-size: 9px; letter-spacing: .3em; color: var(--clay); }
+    .cn-name { font-size: 11px; letter-spacing: .25em; text-transform: uppercase; }
+
+    /* DETAIL */
+    .concept-detail { background: rgba(255,255,255,.015); border: 1px solid rgba(255,255,255,.06); }
+    .cd-header { padding: 32px 40px; border-bottom: 1px solid rgba(227,224,214,.08); display: flex; align-items: baseline; gap: 20px; }
+    .cd-num  { font-size: 11px; letter-spacing: .4em; text-transform: uppercase; color: var(--clay); }
+    .cd-name { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: .1em; color: var(--bone); }
+    .cd-meaning { font-size: 11px; color: var(--slate); letter-spacing: .04em; margin-left: auto; text-align: right; line-height: 1.7; }
+    .cd-body { display: grid; grid-template-columns: 1fr 1fr; }
+    .cd-symbols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-right: 2px solid rgba(227,224,214,.06); }
+    .cd-sym { display: flex; align-items: center; justify-content: center; padding: 56px 32px; }
+    .cd-sym.on-dark  { background: var(--deep); }
+    .cd-sym.on-bone  { background: var(--bone); }
+    .cd-sym.on-dk2   { background: #0c1825; }
+    .cd-sym.on-olive { background: var(--olive); }
+    .cd-combos { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .cd-combo { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 40px 20px 32px; min-height: 220px; }
+    .cd-combo.on-dark  { background: var(--deep); }
+    .cd-combo.on-dk2   { background: #0c1825; }
+    .cd-combo.on-bone  { background: var(--bone); }
+    .cd-combo.on-olive { background: var(--olive); }
+    .combo-v { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .combo-h { display: flex; align-items: center; gap: 16px; }
+    .combo-word { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: .13em; color: var(--bone); line-height: 1; }
+    .combo-word.dark { color: var(--deep); }
+    .combo-tag { font-size: 8px; letter-spacing: .4em; text-transform: uppercase; color: rgba(227,224,214,.35); }
+    .combo-tag.dark { color: var(--olive); }
+
+    /* IN CONTEXT */
+    .ctx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .ctx-card { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; padding: 40px 20px 28px; gap: 16px; border: 1px solid rgba(255,255,255,.04); }
+    .ctx-label { font-size: 9px; letter-spacing: .4em; text-transform: uppercase; color: var(--slate); }
+    .mock-tag { background: #E8E4D9; padding: 18px 18px 20px; width: 118px; display: flex; flex-direction: column; align-items: center; gap: 0; border: 1px solid rgba(0,0,0,.07); box-shadow: 0 6px 24px rgba(0,0,0,.35); }
+    .mock-tag-hole { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #b0a898; margin-bottom: 12px; }
+    .tag-brand { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: .12em; color: var(--deep); line-height: 1; margin-top: 6px; }
+    .tag-divider { width: 72%; height: 1px; background: rgba(0,0,0,.1); margin: 7px 0; }
+    .tag-meta { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: #8a8078; }
+    .tag-price { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: .06em; color: var(--deep); margin-top: 5px; }
+    .mock-patch { border: 2px solid var(--clay); outline: 2px dashed rgba(166,124,91,.28); outline-offset: -7px; padding: 22px 28px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .patch-word { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .2em; color: var(--clay); line-height: 1; }
+
+    /* PALETTE */
+    .palette { display: flex; gap: 2px; margin-top: 72px; padding-top: 48px; border-top: 1px solid rgba(227,224,214,.1); }
+    .swatch { flex: 1; height: 24px; }
+    .note { margin-top: 20px; font-size: 11px; color: var(--slate); line-height: 1.9; max-width: 700px; letter-spacing: .03em; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="ver-switch">
+    <a href="index.html"    class="ver-btn">v1 &mdash; Overview</a>
+    <a href="runes.html"    class="ver-btn">v2 &mdash; Runes</a>
+    <a href="halfmark.html" class="ver-btn">v3 &mdash; Half-Mark</a>
+    <a href="sword.html"    class="ver-btn">v4 &mdash; Sword</a>
+    <span class="ver-btn active">↓ Finalists</span>
+  </div>
+
+  <header class="hdr">
+    <div class="hdr-brand">HALFGØD</div>
+    <div class="hdr-sub">Finalists &mdash; 4 символи &mdash; обери один</div>
+  </header>
+
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Shortlist</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="short-grid" id="short-grid"></div>
+  </section>
+
+  <section class="sec" style="margin-bottom:0;">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Detail View</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="concept-nav" id="concept-nav"></div>
+    <div class="concept-detail" id="concept-detail"></div>
+  </section>
+
+  <section class="sec" style="margin-top:72px; margin-bottom:0;">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">In Context</span>
+      <div class="sec-line"></div>
+    </div>
+    <div id="context-grid" class="ctx-grid"></div>
+  </section>
+
+  <div class="palette">
+    <div class="swatch" style="background:#142231;"></div>
+    <div class="swatch" style="background:#E3E0D6;"></div>
+    <div class="swatch" style="background:#4B5340;"></div>
+    <div class="swatch" style="background:#A67C5B;"></div>
+    <div class="swatch" style="background:#5D676F;"></div>
+  </div>
+  <p class="note">
+    Чотири фіналісти. Клікни на кожен &mdash; порівняй у контексті. Один лишається.
+  </p>
+
+</div>
+<script>
+  const BONE = '#E3E0D6';
+  const DEEP = '#142231';
+
+  const concepts = [
+    {
+      id: 'half-fill', num: 'A', name: 'Half-Fill',
+      meaning: 'Бог-половина заповнена<br>Темне і світле · Баланс',
+      svg: (c, w) => `
+        <path d="M40,6 L72,40 L40,74 L8,40 Z"
+          stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <path d="M40,6 L72,40 L8,40 Z" fill="${c}"/>
+      `
+    },
+    {
+      id: 'half-mark', num: 'B', name: 'Half-Mark',
+      meaning: 'Дуальність · Половина<br>Ромб розрізаний навпіл',
+      svg: (c, w) => `
+        <path d="M40,6 L72,40 L40,74 L8,40 Z"
+          stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <line x1="8" y1="40" x2="72" y2="40"
+          stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+      `
+    },
+    {
+      id: 'ascend', num: 'C', name: 'Ascend',
+      meaning: 'Рух вгору · Творіння<br>Власної реальності',
+      svg: (c, w) => `
+        <path d="M8,48 L40,20 L72,48"
+          stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <path d="M8,64 L40,36 L72,64"
+          stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+      `
+    },
+    {
+      id: 'sword', num: 'D', name: 'Sword',
+      meaning: 'Меч · Воїн · Шлях<br>Прямота й сила',
+      svg: (c, w) => `
+        <line x1="40" y1="5"  x2="35.5" y2="52" stroke="${c}" stroke-width="${w*.45}" stroke-linecap="square"/>
+        <line x1="40" y1="5"  x2="44.5" y2="52" stroke="${c}" stroke-width="${w*.45}" stroke-linecap="square"/>
+        <line x1="40" y1="5"  x2="40"   y2="50" stroke="${c}" stroke-width="${w*.18}" stroke-linecap="square" stroke-dasharray="4 5"/>
+        <line x1="17" y1="52" x2="63"   y2="52" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <line x1="17" y1="49" x2="17"   y2="56" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <line x1="63" y1="49" x2="63"   y2="56" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <line x1="40" y1="54" x2="40"   y2="69" stroke="${c}" stroke-width="${w*.38}" stroke-linecap="square"/>
+        <line x1="37" y1="57" x2="43"   y2="55" stroke="${c}" stroke-width="${w*.28}" stroke-linecap="square"/>
+        <line x1="37" y1="61" x2="43"   y2="59" stroke="${c}" stroke-width="${w*.28}" stroke-linecap="square"/>
+        <line x1="37" y1="65" x2="43"   y2="63" stroke="${c}" stroke-width="${w*.28}" stroke-linecap="square"/>
+        <line x1="33" y1="71" x2="47"   y2="71" stroke="${c}" stroke-width="${w*.85}" stroke-linecap="square"/>
+        <line x1="36" y1="74" x2="44"   y2="74" stroke="${c}" stroke-width="${w*.5}"  stroke-linecap="square"/>
+      `
+    }
+  ];
+
+  /* ─── GRID ─── */
+  function buildGrid() {
+    document.getElementById('short-grid').innerHTML = concepts.map(c => `
+      <div class="short-group" data-id="${c.id}" onclick="select('${c.id}')">
+        <div class="sym-card">
+          <svg viewBox="0 0 80 80" fill="none">${c.svg(BONE, 8)}</svg>
+          <div>
+            <span class="sym-id">${c.num}</span>
+            <span class="sym-name">${c.name}</span>
+          </div>
+        </div>
+        <div class="sym-card lit">
+          <svg viewBox="0 0 80 80" fill="none">${c.svg(DEEP, 8)}</svg>
+          <div>
+            <span class="sym-id">on Bone</span>
+            <span class="sym-name">${c.name}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  /* ─── TABS ─── */
+  function buildTabs() {
+    document.getElementById('concept-nav').innerHTML = concepts.map(c => `
+      <button class="cn-btn" data-id="${c.id}" onclick="select('${c.id}')">
+        <span class="cn-num">${c.num}</span>
+        <span class="cn-name">${c.name}</span>
+      </button>
+    `).join('');
+  }
+
+  /* ─── DETAIL ─── */
+  function renderDetail(c) {
+    const sym = (col, w, sz) =>
+      `<svg viewBox="0 0 80 80" fill="none" width="${sz}" height="${sz}">${c.svg(col, w)}</svg>`;
+    return `
+      <div class="cd-header">
+        <span class="cd-num">${c.num}</span>
+        <span class="cd-name">${c.name}</span>
+        <span class="cd-meaning">${c.meaning}</span>
+      </div>
+      <div class="cd-body">
+        <div class="cd-symbols">
+          <div class="cd-sym on-dark">${sym(BONE, 7, 180)}</div>
+          <div class="cd-sym on-bone">${sym(DEEP, 7, 180)}</div>
+          <div class="cd-sym on-dk2">${sym(BONE, 7, 180)}</div>
+          <div class="cd-sym on-olive">${sym(BONE, 7, 180)}</div>
+        </div>
+        <div class="cd-combos">
+          <div class="cd-combo on-dark">
+            <div class="combo-v">
+              ${sym(BONE, 9, 54)}
+              <span class="combo-word">HALFGØD</span>
+            </div>
+            <span class="combo-tag">Born Human. Built God.</span>
+          </div>
+          <div class="cd-combo on-dk2">
+            <div class="combo-h">
+              ${sym(BONE, 9, 42)}
+              <span class="combo-word" style="font-size:40px;">HALFGØD</span>
+            </div>
+            <span class="combo-tag">Inspired to Create</span>
+          </div>
+          <div class="cd-combo on-bone">
+            <div class="combo-v">
+              ${sym(DEEP, 9, 54)}
+              <span class="combo-word dark">HALFGØD</span>
+            </div>
+            <span class="combo-tag dark">Born Human. Built God.</span>
+          </div>
+          <div class="cd-combo on-olive">
+            <div class="combo-v">
+              ${sym(BONE, 9, 54)}
+              <span class="combo-word">HALFGØD</span>
+            </div>
+            <span class="combo-tag">Born Human. Built God.</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ─── CONTEXT ─── */
+  function renderContext(c) {
+    const CLAY = '#A67C5B';
+    const sym = (col, w, sz) =>
+      `<svg viewBox="0 0 80 80" fill="none" width="${sz}" height="${sz}">${c.svg(col, w)}</svg>`;
+
+    const tshirtSvg = `
+      <svg viewBox="0 0 180 200" fill="none" width="148" height="165">
+        <path d="M55,0 C62,20 118,20 125,0 L180,36 L160,50 L160,200 L20,200 L20,50 L0,36 Z" fill="#4B5340"/>
+        <g transform="translate(71,62) scale(0.475)">${c.svg(BONE, 9)}</g>
+      </svg>`;
+
+    const sealSvg = `
+      <svg viewBox="0 0 160 160" fill="none" width="154" height="154">
+        <defs><path id="sealArc" d="M80,80 m-53,0 a53,53 0 0,1 106,0"/></defs>
+        <circle cx="80" cy="80" r="74" stroke="rgba(166,124,91,.45)" stroke-width="1.5"/>
+        <circle cx="80" cy="80" r="65" stroke="rgba(166,124,91,.2)"  stroke-width="1"/>
+        <circle cx="80" cy="80" r="57" stroke="rgba(166,124,91,.12)" stroke-width="1" stroke-dasharray="3 4"/>
+        <g transform="translate(56,56) scale(0.6)">${c.svg('rgba(166,124,91,.8)', 6)}</g>
+        <text font-family="'Space Grotesk',sans-serif" font-size="9" letter-spacing="3.5" fill="rgba(166,124,91,.55)" text-anchor="middle">
+          <textPath href="#sealArc" startOffset="50%">HALFGØD · BORN HUMAN · BUILT GOD</textPath>
+        </text>
+      </svg>`;
+
+    return `
+      <div class="ctx-card" style="background:#151b22;">
+        ${sym(BONE, 9, 72)}
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.13em;color:var(--bone);line-height:1;">HALFGØD</span>
+        <span class="ctx-label">Storefront / Wall</span>
+      </div>
+      <div class="ctx-card" style="background:#222831;">
+        <div class="mock-tag">
+          <div class="mock-tag-hole"></div>
+          ${sym(DEEP, 8, 36)}
+          <div class="tag-brand">HALFGØD</div>
+          <div class="tag-divider"></div>
+          <div class="tag-meta">XL &nbsp;·&nbsp; 54</div>
+          <div class="tag-divider"></div>
+          <div class="tag-price">1 200 ₴</div>
+        </div>
+        <span class="ctx-label">Hang Tag</span>
+      </div>
+      <div class="ctx-card" style="background:#100d0a;">
+        <div class="mock-patch">
+          ${sym(CLAY, 8, 52)}
+          <div class="patch-word">HALFGØD</div>
+        </div>
+        <span class="ctx-label">Leather Patch</span>
+      </div>
+      <div class="ctx-card" style="background:#1a1f27;">
+        ${tshirtSvg}
+        <span class="ctx-label">T-Shirt Chest Print</span>
+      </div>
+      <div class="ctx-card" style="background:#0e1318;">
+        <div class="mock-patch" style="border-color:rgba(227,224,214,.1);outline-color:rgba(227,224,214,.06);background:linear-gradient(145deg,#2a2f35,#1c2025);gap:6px;padding:20px 28px;">
+          ${sym('rgba(227,224,214,.2)', 9, 48)}
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.2em;color:rgba(227,224,214,.22);line-height:1;">HALFGØD</div>
+          <div style="font-size:7px;letter-spacing:.35em;text-transform:uppercase;color:rgba(227,224,214,.12);">Born Human. Built God.</div>
+        </div>
+        <span class="ctx-label">Metal Rivet Label</span>
+      </div>
+      <div class="ctx-card" style="background:#0e1318;">
+        ${sealSvg}
+        <span class="ctx-label">Wax Seal / Stamp</span>
+      </div>
+    `;
+  }
+
+  /* ─── SELECT ─── */
+  function select(id) {
+    document.querySelectorAll('.cn-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.id === id));
+    document.querySelectorAll('.short-group').forEach(g =>
+      g.classList.toggle('selected', g.dataset.id === id));
+    const c = concepts.find(x => x.id === id);
+    document.getElementById('concept-detail').innerHTML = renderDetail(c);
+    document.getElementById('context-grid').innerHTML = renderContext(c);
+  }
+
+  buildGrid();
+  buildTabs();
+  select('half-fill');
+</script>
+</body>
+</html>
