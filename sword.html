@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HALFGØD — Half-Mark Exploration</title>
+  <title>HALFGØD — Sword Concepts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant:wght@600&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
@@ -16,68 +16,44 @@
       --clay: #A67C5B;
       --slate: #5D676F;
     }
-    body {
-      background: var(--deep);
-      color: var(--bone);
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-weight: 300;
-    }
+    body { background: var(--deep); color: var(--bone); font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 300; }
     .wrap { max-width: 1280px; margin: 0 auto; padding: 72px 56px 100px; }
 
-    /* VERSION SWITCHER */
     .ver-switch { display: inline-flex; gap: 2px; margin-bottom: 48px; }
     .ver-btn {
-      padding: 10px 24px;
-      font-family: 'Space Grotesk', sans-serif;
+      padding: 10px 24px; font-family: 'Space Grotesk', sans-serif;
       font-size: 10px; letter-spacing: .35em; text-transform: uppercase;
-      text-decoration: none;
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.08);
-      border-bottom: 2px solid transparent;
+      text-decoration: none; background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08); border-bottom: 2px solid transparent;
       color: var(--slate); transition: all .15s;
     }
     .ver-btn:hover { color: var(--bone); background: rgba(255,255,255,.06); }
-    .ver-btn.active {
-      color: var(--bone);
-      border-bottom: 2px solid var(--clay);
-      background: rgba(166,124,91,.07);
-      cursor: default; pointer-events: none;
-    }
+    .ver-btn.active { color: var(--bone); border-bottom: 2px solid var(--clay); background: rgba(166,124,91,.07); cursor: default; pointer-events: none; }
 
-    /* HEADER */
     .hdr { padding-bottom: 36px; border-bottom: 1px solid rgba(227,224,214,.12); margin-bottom: 72px; }
     .hdr-brand { font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: .1em; line-height: 1; }
     .hdr-sub { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--slate); margin-top: 6px; }
 
-    /* SECTION */
     .sec { margin-bottom: 72px; }
     .sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
     .sec-num   { font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--clay); white-space: nowrap; }
     .sec-title { font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--slate); white-space: nowrap; }
     .sec-line  { flex: 1; height: 1px; background: rgba(227,224,214,.1); }
 
-    /* RUNE GRID */
-    .rune-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .rune-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
     .rune-group { display: flex; flex-direction: column; gap: 2px; cursor: pointer; }
-    .rune-group .rune-card:first-child {
-      border-bottom: 2px solid transparent;
-      transition: border-color .2s, background .2s;
-    }
-    .rune-group.selected .rune-card:first-child {
-      border-bottom: 2px solid var(--clay);
-      background: rgba(166,124,91,.08);
-    }
+    .rune-group .rune-card:first-child { border-bottom: 2px solid transparent; transition: border-color .2s, background .2s; }
+    .rune-group.selected .rune-card:first-child { border-bottom: 2px solid var(--clay); background: rgba(166,124,91,.08); }
     .rune-card {
-      padding: 36px 16px 22px;
+      padding: 40px 16px 26px;
       display: flex; flex-direction: column; align-items: center; gap: 16px;
-      background: rgba(255,255,255,.025);
-      border: 1px solid rgba(255,255,255,.05);
+      background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05);
       transition: background .2s;
     }
     .rune-group:hover .rune-card:first-child { background: rgba(255,255,255,.05); }
     .rune-card.lit { background: var(--bone); border-color: transparent; }
     .rune-group.selected .rune-card.lit { background: #d6d3c9; }
-    .rune-card svg { width: 64px; height: 64px; }
+    .rune-card svg { width: 72px; height: 72px; }
     .rune-id   { font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: var(--clay); display: block; text-align: center; }
     .rune-name { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--bone); display: block; text-align: center; margin-top: 3px; }
     .rune-desc { font-size: 10px; color: var(--slate); text-align: center; line-height: 1.7; }
@@ -85,17 +61,11 @@
     .rune-card.lit .rune-name { color: var(--deep); }
     .rune-card.lit .rune-desc { color: var(--olive); }
 
-    /* CONCEPT NAVIGATOR */
-    .concept-nav {
-      display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; margin-bottom: 3px;
-    }
+    .concept-nav { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; margin-bottom: 3px; }
     .cn-btn {
-      padding: 16px 8px;
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.05);
-      border-bottom: 2px solid transparent;
-      color: var(--slate); cursor: pointer;
-      font-family: 'Space Grotesk', sans-serif;
+      padding: 16px 8px; background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.05); border-bottom: 2px solid transparent;
+      color: var(--slate); cursor: pointer; font-family: 'Space Grotesk', sans-serif;
       display: flex; flex-direction: column; align-items: center; gap: 5px;
       transition: all .15s; white-space: nowrap;
     }
@@ -104,71 +74,44 @@
     .cn-num  { font-size: 9px; letter-spacing: .3em; color: var(--clay); }
     .cn-name { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; }
 
-    /* CONCEPT DETAIL */
     .concept-detail { background: rgba(255,255,255,.015); border: 1px solid rgba(255,255,255,.06); }
-    .cd-header {
-      padding: 32px 40px; border-bottom: 1px solid rgba(227,224,214,.08);
-      display: flex; align-items: baseline; gap: 20px;
-    }
+    .cd-header { padding: 32px 40px; border-bottom: 1px solid rgba(227,224,214,.08); display: flex; align-items: baseline; gap: 20px; }
     .cd-num  { font-size: 11px; letter-spacing: .4em; text-transform: uppercase; color: var(--clay); }
     .cd-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: .1em; color: var(--bone); }
-    .cd-rune { font-size: 24px; color: rgba(227,224,214,.3); margin-left: -8px; }
+    .cd-rune { font-size: 22px; color: rgba(227,224,214,.3); margin-left: -6px; }
     .cd-meaning { font-size: 11px; color: var(--slate); letter-spacing: .04em; margin-left: auto; text-align: right; line-height: 1.7; }
-    .cd-body { display: grid; grid-template-columns: 1fr 1fr; border-top: none; }
-    .cd-symbols {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
-      border-right: 2px solid rgba(227,224,214,.06);
-    }
+    .cd-body { display: grid; grid-template-columns: 1fr 1fr; }
+    .cd-symbols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-right: 2px solid rgba(227,224,214,.06); }
     .cd-sym { display: flex; align-items: center; justify-content: center; padding: 48px 24px; }
     .cd-sym.on-dark  { background: var(--deep); }
     .cd-sym.on-bone  { background: var(--bone); }
     .cd-sym.on-dk2   { background: #0c1825; }
     .cd-sym.on-olive { background: var(--olive); }
     .cd-combos { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    .cd-combo {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 12px; padding: 36px 20px 28px; min-height: 200px;
-    }
+    .cd-combo { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 36px 20px 28px; min-height: 200px; }
     .cd-combo.on-dark  { background: var(--deep); }
     .cd-combo.on-dk2   { background: #0c1825; }
     .cd-combo.on-bone  { background: var(--bone); }
     .cd-combo.on-olive { background: var(--olive); }
     .combo-v { display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .combo-h { display: flex; align-items: center; gap: 14px; }
-    .combo-word {
-      font-family: 'Bebas Neue', sans-serif; font-size: 34px;
-      letter-spacing: .13em; color: var(--bone); line-height: 1;
-    }
+    .combo-word { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: .13em; color: var(--bone); line-height: 1; }
     .combo-word.dark { color: var(--deep); }
     .combo-tag { font-size: 8px; letter-spacing: .4em; text-transform: uppercase; color: rgba(227,224,214,.35); }
     .combo-tag.dark { color: var(--olive); }
 
-    /* IN CONTEXT */
     .ctx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .ctx-card {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-height: 300px; padding: 40px 20px 28px; gap: 16px;
-      border: 1px solid rgba(255,255,255,.04);
-    }
+    .ctx-card { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; padding: 40px 20px 28px; gap: 16px; border: 1px solid rgba(255,255,255,.04); }
     .ctx-label { font-size: 9px; letter-spacing: .4em; text-transform: uppercase; color: var(--slate); }
-    .mock-tag {
-      background: #E8E4D9; padding: 18px 18px 20px; width: 118px;
-      display: flex; flex-direction: column; align-items: center; gap: 0;
-      border: 1px solid rgba(0,0,0,.07); box-shadow: 0 6px 24px rgba(0,0,0,.35);
-    }
+    .mock-tag { background: #E8E4D9; padding: 18px 18px 20px; width: 118px; display: flex; flex-direction: column; align-items: center; gap: 0; border: 1px solid rgba(0,0,0,.07); box-shadow: 0 6px 24px rgba(0,0,0,.35); }
     .mock-tag-hole { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #b0a898; margin-bottom: 12px; }
     .tag-brand { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: .12em; color: var(--deep); line-height: 1; margin-top: 6px; }
     .tag-divider { width: 72%; height: 1px; background: rgba(0,0,0,.1); margin: 7px 0; }
     .tag-meta { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: #8a8078; }
     .tag-price { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: .06em; color: var(--deep); margin-top: 5px; }
-    .mock-patch {
-      border: 2px solid var(--clay); outline: 2px dashed rgba(166,124,91,.28);
-      outline-offset: -7px; padding: 22px 28px;
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-    }
+    .mock-patch { border: 2px solid var(--clay); outline: 2px dashed rgba(166,124,91,.28); outline-offset: -7px; padding: 22px 28px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .patch-word { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .2em; color: var(--clay); line-height: 1; }
 
-    /* PALETTE */
     .palette { display: flex; gap: 2px; margin-top: 72px; padding-top: 48px; border-top: 1px solid rgba(227,224,214,.1); }
     .swatch  { flex: 1; height: 24px; }
     .note    { margin-top: 20px; font-size: 11px; color: var(--slate); line-height: 1.9; max-width: 700px; letter-spacing: .03em; }
@@ -178,18 +121,17 @@
 <div class="wrap">
 
   <div class="ver-switch">
-    <a href="index.html" class="ver-btn">v1 &mdash; Overview</a>
-    <a href="runes.html" class="ver-btn">v2 &mdash; Runes</a>
-    <span class="ver-btn active">v3 &mdash; Half-Mark</span>
-    <a href="sword.html" class="ver-btn">v4 &mdash; Sword</a>
+    <a href="index.html"    class="ver-btn">v1 &mdash; Overview</a>
+    <a href="runes.html"    class="ver-btn">v2 &mdash; Runes</a>
+    <a href="halfmark.html" class="ver-btn">v3 &mdash; Half-Mark</a>
+    <span class="ver-btn active">v4 &mdash; Sword</span>
   </div>
 
   <header class="hdr">
     <div class="hdr-brand">HALFGØD</div>
-    <div class="hdr-sub">Half-Mark Variations &mdash; Пропорції · Вага · Форма &mdash; v3</div>
+    <div class="hdr-sub">Sword Concepts &mdash; Складніші форми &mdash; v4</div>
   </header>
 
-  <!-- 01 — GRID OVERVIEW -->
   <section class="sec">
     <div class="sec-head">
       <span class="sec-num">01</span>
@@ -199,7 +141,6 @@
     <div class="rune-grid" id="rune-grid"></div>
   </section>
 
-  <!-- 02 — CONCEPT SWITCHER -->
   <section class="sec" style="margin-bottom:0;">
     <div class="sec-head">
       <span class="sec-num">02</span>
@@ -210,7 +151,6 @@
     <div class="concept-detail" id="concept-detail"></div>
   </section>
 
-  <!-- 03 — IN CONTEXT -->
   <section class="sec" style="margin-top:72px; margin-bottom:0;">
     <div class="sec-head">
       <span class="sec-num">03</span>
@@ -220,7 +160,6 @@
     <div id="context-grid" class="ctx-grid"></div>
   </section>
 
-  <!-- PALETTE -->
   <div class="palette">
     <div class="swatch" style="background:#142231;"></div>
     <div class="swatch" style="background:#E3E0D6;"></div>
@@ -229,92 +168,140 @@
     <div class="swatch" style="background:#5D676F;"></div>
   </div>
   <p class="note">
-    Вісім варіацій одного знаку &mdash; пропорції, вага лінії, спосіб розрізання.
-    Знайди ту, що резонує &mdash; і підемо до фінальної доводки форми.
+    Складніші форми &mdash; мечі, рубаний рух, воїнська символіка. Порівняй із Half-Mark v3:
+    що читається краще на маленькому розмірі?
   </p>
 
 </div>
-
 <script>
   const BONE = '#E3E0D6';
   const DEEP = '#142231';
 
+  // ─── SWORD BUILDER ──────────────────────────────────────────────
+  // Minimal line sword centered in 80×80, tip up.
+  // Returns SVG string. Used standalone AND inside rotate() groups.
+  function blade(c, w) {
+    const bw = w * 0.48; // blade line weight
+    const gw = w * 0.85; // guard weight
+    const rw = w * 0.38; // grip weight
+    const pw = w * 0.75; // pommel weight
+    return [
+      `<line x1="40" y1="5"  x2="36" y2="50" stroke="${c}" stroke-width="${bw}" stroke-linecap="square"/>`,
+      `<line x1="40" y1="5"  x2="44" y2="50" stroke="${c}" stroke-width="${bw}" stroke-linecap="square"/>`,
+      `<line x1="20" y1="50" x2="60" y2="50" stroke="${c}" stroke-width="${gw}" stroke-linecap="square"/>`,
+      `<line x1="40" y1="52" x2="40" y2="65" stroke="${c}" stroke-width="${rw}" stroke-linecap="square"/>`,
+      `<line x1="34" y1="67" x2="46" y2="67" stroke="${c}" stroke-width="${pw}" stroke-linecap="square"/>`,
+    ].join('');
+  }
+
   const concepts = [
+
     {
-      // Baseline — стандартні пропорції
-      id: 'classic', num: '01', name: 'Classic', rune: '◇',
-      meaning: 'Базова форма · Рівновага<br>Рівна ширина і висота',
+      id: 'sword', num: '01', name: 'Sword', rune: '†',
+      meaning: 'Меч · Воїн · Шлях<br>Прямота й сила',
       svg: (c, w) => `
-        <path d="M40,6 L72,40 L40,74 L8,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <line x1="8" y1="40" x2="72" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+        <!-- Blade edges -->
+        <line x1="40" y1="5"  x2="35.5" y2="52" stroke="${c}" stroke-width="${w*.45}" stroke-linecap="square"/>
+        <line x1="40" y1="5"  x2="44.5" y2="52" stroke="${c}" stroke-width="${w*.45}" stroke-linecap="square"/>
+        <!-- Fuller (centre ridge) -->
+        <line x1="40" y1="5"  x2="40"   y2="50" stroke="${c}" stroke-width="${w*.18}" stroke-linecap="square" stroke-dasharray="4 5"/>
+        <!-- Guard -->
+        <line x1="17" y1="52" x2="63"   y2="52" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <line x1="17" y1="49" x2="17"   y2="56" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <line x1="63" y1="49" x2="63"   y2="56" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <!-- Grip + wrapping -->
+        <line x1="40" y1="54" x2="40"   y2="69" stroke="${c}" stroke-width="${w*.38}" stroke-linecap="square"/>
+        <line x1="37" y1="57" x2="43"   y2="55" stroke="${c}" stroke-width="${w*.28}" stroke-linecap="square"/>
+        <line x1="37" y1="61" x2="43"   y2="59" stroke="${c}" stroke-width="${w*.28}" stroke-linecap="square"/>
+        <line x1="37" y1="65" x2="43"   y2="63" stroke="${c}" stroke-width="${w*.28}" stroke-linecap="square"/>
+        <!-- Pommel -->
+        <line x1="33" y1="71" x2="47"   y2="71" stroke="${c}" stroke-width="${w*.85}" stroke-linecap="square"/>
+        <line x1="36" y1="74" x2="44"   y2="74" stroke="${c}" stroke-width="${w*.5}"  stroke-linecap="square"/>
       `
     },
+
     {
-      // Вузький і довгий — як вістря, дагер
-      id: 'slim', num: '02', name: 'Slim', rune: '',
-      meaning: 'Вістря · Загострений<br>Дагер · Точність удару',
+      id: 'crossed', num: '02', name: 'Crossed', rune: '⚔',
+      meaning: 'Схрещені мечі · Дуель<br>Дві сторони однієї долі',
+      svg: (c, w) => {
+        const s = blade(c, w);
+        return `
+          <g transform="rotate(-40, 40, 40)">${s}</g>
+          <g transform="rotate( 40, 40, 40)">${s}</g>
+        `;
+      }
+    },
+
+    {
+      id: 'triple', num: '03', name: 'Triple Strike', rune: '',
+      meaning: 'Три удари · Тріада<br>Минуле · Тепер · Майбутнє',
+      svg: (c, w) => {
+        const s = blade(c, w);
+        return `
+          <g transform="rotate(  0, 40, 40)">${s}</g>
+          <g transform="rotate( 60, 40, 40)">${s}</g>
+          <g transform="rotate(-60, 40, 40)">${s}</g>
+        `;
+      }
+    },
+
+    {
+      id: 'algiz-sword', num: '04', name: 'Algiz Sword', rune: 'ᛉ',
+      meaning: 'Руна + Меч · Зброя богів<br>Захист через силу',
       svg: (c, w) => `
-        <path d="M40,4 L62,40 L40,76 L18,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <line x1="18" y1="40" x2="62" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+        <!-- Вертикальна вісь — лезо + рукоять -->
+        <line x1="40" y1="5"  x2="40"  y2="74" stroke="${c}" stroke-width="${w*.48}" stroke-linecap="square"/>
+        <!-- Руни-плечі / Guard — під кутом вгору (Algiz arms) -->
+        <line x1="40" y1="32" x2="12"  y2="6"  stroke="${c}" stroke-width="${w*.48}" stroke-linecap="square"/>
+        <line x1="40" y1="32" x2="68"  y2="6"  stroke="${c}" stroke-width="${w*.48}" stroke-linecap="square"/>
+        <!-- Горизонтальний гард нижче (традиційний хрест меча) -->
+        <line x1="20" y1="50" x2="60"  y2="50" stroke="${c}" stroke-width="${w*.85}" stroke-linecap="square"/>
+        <!-- Наконечник руків'я -->
+        <line x1="34" y1="74" x2="46"  y2="74" stroke="${c}" stroke-width="${w*.85}" stroke-linecap="square"/>
       `
     },
+
     {
-      // Широкий і плаский — як щит або герб
-      id: 'wide', num: '03', name: 'Wide', rune: '',
-      meaning: 'Щит · Стабільна база<br>Широка позиція · Герб',
+      id: 'half-sword', num: '05', name: 'Half-Sword', rune: '',
+      meaning: 'Меч крізь ромб<br>Два напрямки — один знак',
       svg: (c, w) => `
-        <path d="M40,16 L74,40 L40,64 L6,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <line x1="6" y1="40" x2="74" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
+        <!-- Half-mark diamond -->
+        <path d="M40,8 L66,36 L40,64 L14,36 Z" stroke="${c}" stroke-width="${w*.7}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <line x1="14" y1="36" x2="66" y2="36" stroke="${c}" stroke-width="${w*.7}" stroke-linecap="square"/>
+        <!-- Sword: blade tip above, grip+pommel below -->
+        <line x1="40" y1="4"  x2="40"  y2="8"  stroke="${c}" stroke-width="${w*.45}" stroke-linecap="square"/>
+        <line x1="40" y1="4"  x2="38"  y2="8"  stroke="${c}" stroke-width="${w*.45}" stroke-linecap="square"/>
+        <line x1="40" y1="4"  x2="42"  y2="8"  stroke="${c}" stroke-width="${w*.45}" stroke-linecap="square"/>
+        <!-- Blade through diamond (thin) -->
+        <line x1="40" y1="4"  x2="40"  y2="64" stroke="${c}" stroke-width="${w*.3}"  stroke-linecap="square"/>
+        <!-- Grip below diamond -->
+        <line x1="40" y1="66" x2="40"  y2="74" stroke="${c}" stroke-width="${w*.38}" stroke-linecap="square"/>
+        <line x1="35" y1="76" x2="45"  y2="76" stroke="${c}" stroke-width="${w*.75}" stroke-linecap="square"/>
       `
     },
+
     {
-      // Верхня половина залита — буквальне "half"
-      id: 'half-fill', num: '04', name: 'Half-Fill', rune: '',
-      meaning: 'Бог-половина заповнена<br>Темне і світле · Баланс',
+      id: 'broken', num: '06', name: 'Broken Blade', rune: '',
+      meaning: 'Зламаний меч · Напівбог<br>Не повний — але сильний',
       svg: (c, w) => `
-        <path d="M40,6 L72,40 L40,74 L8,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <path d="M40,6 L72,40 L8,40 Z" fill="${c}"/>
-      `
-    },
-    {
-      // Ромб + шпиль вниз — pin, броша, крапля
-      id: 'pin', num: '05', name: 'Pin Drop', rune: '',
-      meaning: 'Pin · Знак місця<br>Байкерська броша · Крапля',
-      svg: (c, w) => `
-        <path d="M40,6 L67,34 L40,56 L13,34 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <line x1="13" y1="34" x2="67" y2="34" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
-        <line x1="40" y1="56" x2="40" y2="74" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
-      `
-    },
-    {
-      // Лінія зміщена у верхню третину — асиметрія
-      id: 'high-split', num: '06', name: 'High Split', rune: '',
-      meaning: 'Асиметричний розріз<br>Більше неба · Менше землі',
-      svg: (c, w) => `
-        <path d="M40,6 L72,40 L40,74 L8,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <line x1="21" y1="26" x2="59" y2="26" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
-      `
-    },
-    {
-      // Розрив посередині лінії — пробіл, недомовленість
-      id: 'dash', num: '07', name: 'Dash', rune: '',
-      meaning: 'Розрив · Пробіл<br>Недомовленість між двох',
-      svg: (c, w) => `
-        <path d="M40,6 L72,40 L40,74 L8,40 Z" stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <line x1="8"  y1="40" x2="30" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
-        <line x1="50" y1="40" x2="72" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
-      `
-    },
-    {
-      // Подвійний — ромб у ромбі зі спільним горизонтом
-      id: 'double', num: '08', name: 'Double', rune: '',
-      meaning: 'Ціль у цілі · Глибина<br>Подвійна ідентичність',
-      svg: (c, w) => `
-        <path d="M40,6 L72,40 L40,74 L8,40 Z"  stroke="${c}" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-        <line x1="8" y1="40" x2="72" y2="40" stroke="${c}" stroke-width="${w}" stroke-linecap="square"/>
-        <path d="M40,20 L56,40 L40,60 L24,40 Z" stroke="${c}" stroke-width="${w * 0.65}" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+        <!-- Blade: only top half, tip to guard -->
+        <line x1="40" y1="5"  x2="36.5" y2="38" stroke="${c}" stroke-width="${w*.48}" stroke-linecap="square"/>
+        <line x1="40" y1="5"  x2="43.5" y2="38" stroke="${c}" stroke-width="${w*.48}" stroke-linecap="square"/>
+        <!-- Break edge — jagged horizontal -->
+        <line x1="34" y1="38" x2="40"   y2="35" stroke="${c}" stroke-width="${w*.4}"  stroke-linecap="square"/>
+        <line x1="40" y1="35" x2="46"   y2="38" stroke="${c}" stroke-width="${w*.4}"  stroke-linecap="square"/>
+        <!-- Guard — further down where it would normally sit -->
+        <line x1="18" y1="50" x2="62"   y2="50" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <line x1="18" y1="47" x2="18"   y2="54" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <line x1="62" y1="47" x2="62"   y2="54" stroke="${c}" stroke-width="${w*.9}"  stroke-linecap="square"/>
+        <!-- Grip -->
+        <line x1="40" y1="52" x2="40"   y2="66" stroke="${c}" stroke-width="${w*.38}" stroke-linecap="square"/>
+        <!-- Pommel -->
+        <line x1="34" y1="68" x2="46"   y2="68" stroke="${c}" stroke-width="${w*.85}" stroke-linecap="square"/>
+        <line x1="36" y1="71" x2="44"   y2="71" stroke="${c}" stroke-width="${w*.5}"  stroke-linecap="square"/>
       `
     }
+
   ];
 
   /* ─── RENDER GRID ─── */
@@ -354,9 +341,8 @@
 
   /* ─── RENDER DETAIL ─── */
   function renderDetail(c) {
-    const sym = (color, w, size) =>
-      `<svg viewBox="0 0 80 80" fill="none" width="${size}" height="${size}">${c.svg(color, w)}</svg>`;
-
+    const sym = (col, w, sz) =>
+      `<svg viewBox="0 0 80 80" fill="none" width="${sz}" height="${sz}">${c.svg(col, w)}</svg>`;
     return `
       <div class="cd-header">
         <span class="cd-num">${c.num}</span>
@@ -419,9 +405,7 @@
 
     const sealSvg = `
       <svg viewBox="0 0 160 160" fill="none" width="154" height="154">
-        <defs>
-          <path id="sealArc" d="M80,80 m-53,0 a53,53 0 0,1 106,0"/>
-        </defs>
+        <defs><path id="sealArc" d="M80,80 m-53,0 a53,53 0 0,1 106,0"/></defs>
         <circle cx="80" cy="80" r="74" stroke="rgba(166,124,91,.45)" stroke-width="1.5"/>
         <circle cx="80" cy="80" r="65" stroke="rgba(166,124,91,.2)" stroke-width="1"/>
         <circle cx="80" cy="80" r="57" stroke="rgba(166,124,91,.12)" stroke-width="1" stroke-dasharray="3 4"/>
@@ -437,7 +421,6 @@
         <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.13em;color:var(--bone);line-height:1;">HALFGØD</span>
         <span class="ctx-label">Storefront / Wall</span>
       </div>
-
       <div class="ctx-card" style="background:#222831;">
         <div class="mock-tag">
           <div class="mock-tag-hole"></div>
@@ -450,7 +433,6 @@
         </div>
         <span class="ctx-label">Hang Tag</span>
       </div>
-
       <div class="ctx-card" style="background:#100d0a;">
         <div class="mock-patch">
           ${sym(CLAY, 8, 48)}
@@ -458,12 +440,10 @@
         </div>
         <span class="ctx-label">Leather Patch</span>
       </div>
-
       <div class="ctx-card" style="background:#1a1f27;">
         ${tshirtSvg}
         <span class="ctx-label">T-Shirt Chest Print</span>
       </div>
-
       <div class="ctx-card" style="background:#0e1318;">
         <div class="mock-patch" style="border-color:rgba(227,224,214,.1);outline-color:rgba(227,224,214,.06);background:linear-gradient(145deg,#2a2f35,#1c2025);gap:6px;padding:20px 28px;">
           ${sym('rgba(227,224,214,.2)', 9, 44)}
@@ -472,7 +452,6 @@
         </div>
         <span class="ctx-label">Metal Rivet Label</span>
       </div>
-
       <div class="ctx-card" style="background:#0e1318;">
         ${sealSvg}
         <span class="ctx-label">Wax Seal / Stamp</span>
@@ -480,23 +459,20 @@
     `;
   }
 
-  /* ─── SELECT CONCEPT ─── */
+  /* ─── SELECT ─── */
   function select(id) {
     document.querySelectorAll('.cn-btn').forEach(b =>
-      b.classList.toggle('active', b.dataset.id === id)
-    );
+      b.classList.toggle('active', b.dataset.id === id));
     document.querySelectorAll('.rune-group').forEach(g =>
-      g.classList.toggle('selected', g.dataset.concept === id)
-    );
+      g.classList.toggle('selected', g.dataset.concept === id));
     const c = concepts.find(x => x.id === id);
     document.getElementById('concept-detail').innerHTML = renderDetail(c);
     document.getElementById('context-grid').innerHTML = renderContext(c);
   }
 
-  /* ─── INIT ─── */
   buildGrid();
   buildTabs();
-  select('classic');
+  select('sword');
 </script>
 </body>
 </html>
